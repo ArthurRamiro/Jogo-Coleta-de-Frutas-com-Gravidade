@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        canvas { 
+            width: 800px;
+            height: 800px;
+            background-color: rgb(0, 0, 0);
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="900"></canvas>
+
+
+
+    <script>
+        // Obtém uma referência para o elemento canvas
+        const canvas = document.getElementById('myCanvas');
+        const context = canvas.getContext('2d');
+
+        let placar = 0;
+        let gravidade = 0.4;
+
+        let fruit = {};
+        fruit.x = parseInt(Math.random() * canvas.width)
+        fruit.y = parseInt(Math.random() * canvas.height)
+        fruit.radius = 10
+        fruit.color = 'red'
+
+        // Define as coordenadas iniciais da bola
+        let ball = {}
+        ball.x = canvas.width / 2;
+        ball.y = canvas.height / 2;
+        ball.radius = 30;
+        ball.color = 'white'
+
+        // Define as variáveis para o movimento da bola
+        let dx = 0;
+        let dy = 0;
+
+        let v = 10;
+
+        // Função para desenhar a bola no canvas
+        function drawBall() {
+            if (ball) {
+                context.beginPath();
+                context.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+                context.fillStyle = ball.color;
+                context.fill();
+                context.closePath();
+            }
+        }
+
+        function drawFruit() {
+            if (fruit) {
+                context.beginPath();
+                context.arc(fruit.x, fruit.y, fruit.radius, 0, Math.PI * 2);
+                context.fillStyle = fruit.color;
+                context.fill();
+                context.closePath();
+            }
+        }
+
+        function drawPlacar() {
+            context.fillStyle = ball.color;
+            context.font = "30px Verdana";
+            context.fillText(`Placar: ${placar} `, 35, 35);
+        }        
+
+        // Função para atualizar a posição da bola
+        function updatePosition() {
+            dy += gravidade;
+
+            ball.x += dx;
+            ball.y += dy;
+
+            if (ball.x > canvas.width + ball.radius) {
+                ball.x = 0
+            } else if (ball.x < -ball.radius) {
+                ball.x = canvas.width
+            }
+
+            if (ball.y > canvas.height - ball.radius) {
+                ball.y = canvas.height - ball.radius;
+                dy = 0;
+            } 
+        }
+
+
+
+        // Função para verificar a colisão entre as bolas
+        function checkCollision() {
+            // Calcula a distância entre os centros das bolas
+            const distanceX = ball.x - fruit.x;
+            const distanceY = ball.y - fruit.y;
+            const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+            // Verifica se a distância é menor que a soma dos raios das bolas
+            if (distance < ball.radius + fruit.radius) {
+                // console.log("Colisão detectada!");
+                // Faça algo quando houver uma colisão entre as bolas
+
+                fruit.x = parseInt(Math.random() * canvas.width)
+                fruit.y = parseInt(Math.random() * canvas.height)
+
+                placar += 5;
+
+            }
+        }
+
+
+        // Função para limpar o canvas e redesenhar a bola na nova posição
+        function updateCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height);
+            drawPlacar();
+            drawBall();
+            drawFruit();
+        }
+
+        // Função para lidar com os eventos de teclado
+        function handleKeyDown(event) {
+            // Move para a esquerda
+            if (event.keyCode === 37) {
+                dx = -v;
+            }
+            // Move para cima
+            else if (event.keyCode === 38) {
+                dy = -v;
+            }
+            // Move para a direita
+            else if (event.keyCode === 39) {
+                dx = v;
+            }
+            // Move para baixo
+            else if (event.keyCode === 40) {
+                dy = v;
+            }
+        }
+
+        // Função para lidar com a liberação das teclas
+        function handleKeyUp(event) {
+            // Para a movimentação na direção horizontal
+            if (event.keyCode === 37) {
+                dx = 0;
+            }
+            
+            else if (event.keyCode === 39) {
+                dx = 0;
+            }
+
+            // Para a movimentação na direção vertical
+            if (event.keyCode === 38) {
+                dy = 0;
+            }
+
+            else if (event.keyCode === 40) {
+                dy = 0;
+            }
+        }
+
+        // Adiciona listeners de eventos de teclado
+        document.addEventListener('keydown', handleKeyDown);
+        document.addEventListener('keyup', handleKeyUp);
+
+        // Função de animação
+        function animate() {
+            updatePosition();
+            checkCollision();
+            updateCanvas();
+            requestAnimationFrame(animate);
+        }
+
+        // Inicia a animação
+        animate();
+
+    </script>
+</body>
+
+</html>
