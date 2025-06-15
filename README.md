@@ -4,10 +4,15 @@ Este projeto implementa um jogo de coleta de frutas com física de gravidade e s
 Funcionalidades Principais:
 
 🎮 Controle por teclado: Use as setas para movimentar a bola
+
 ⬇️ Sistema de gravidade: Física realista com aceleração gravitacional
+
 📊 Sistema de pontuação: Placar que aumenta com cada fruta coletada
+
 🍎 Geração aleatória de frutas: Nova fruta aparece em posição aleatória após coleta
+
 🔄 Teletransporte lateral: A bola reaparece do outro lado quando sai pelas laterais
+
 💥 Detecção de colisão: Sistema preciso de colisão círculo-círculo
 
 Como Jogar:
