@@ -1,7 +1,7 @@
 # Jogo-Coleta-de-Frutas-com-Gravidade
 Este projeto implementa um jogo de coleta de frutas com física de gravidade e sistema de pontuação. O jogador controla uma bola branca para coletar frutas vermelhas que aparecem aleatoriamente no canvas, enquanto lida com os efeitos da gravidade.
 
-*Funcionalidades Principais:*
+**Funcionalidades Principais:**
 
 🎮 Controle por teclado: Use as setas para movimentar a bola
 
@@ -15,7 +15,7 @@ Este projeto implementa um jogo de coleta de frutas com física de gravidade e s
 
 💥 Detecção de colisão: Sistema preciso de colisão círculo-círculo
 
-*Como Jogar:*
+**Como Jogar:**
 * Abra o arquivo HTML em qualquer navegador moderno
 * Use as teclas de seta (← ↑ → ↓) para controlar a bola branca
 * Colete as frutas vermelhas para aumentar sua pontuação
